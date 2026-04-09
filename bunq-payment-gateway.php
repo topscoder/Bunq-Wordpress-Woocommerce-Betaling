@@ -3,7 +3,7 @@
 Plugin Name: Bunq Betaal Gateway 
 Description: Een aangepaste WooCommerce betaalmethode voor Bunq. 
 Version: 2.0
-Author: Dutchbase, topscoder
+Author: Dutchbase
 Author URI: https://github.com/dutchbase
 */ 
 if (!defined('ABSPATH')) { 
