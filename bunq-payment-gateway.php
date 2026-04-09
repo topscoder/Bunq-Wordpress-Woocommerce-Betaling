@@ -100,17 +100,17 @@ function init_bunq_payment_gateway() {
             } else {
                 return array(
                     'result' => 'success',
-                    'redirect' => add_query_arg('bunq_payment', $bunq_link, $this->get_return_url($order))
+                    'redirect' => add_query_arg('bunq_payment', urlencode($bunq_link), $this->get_return_url($order))
                 );
             }
         } 
+
         public function receipt_page($order) { 
             $order = wc_get_order($order); 
             $amount = number_format($order->get_total(), 2, '.', ''); 
-            $url = "https://bunq.me/JOUWGEBRUIKERSNAAM/{$amount}"; 
+            $url = "https://bunq.me/JOUWGEBRUIKERSNAAM/{$amount}";
         } 
     } 
-    
     function add_bunq_gateway($methods) { 
         error_log('add_bunq_gateway called');
         $methods[] = 'WC_Gateway_Bunq'; 
@@ -122,7 +122,7 @@ function init_bunq_payment_gateway() {
 // Add this function outside of the WC_Gateway_Bunq class
 function bunq_display_payment_button($order_id) {
     if (isset($_GET['bunq_payment'])) {
-        $bunq_link = esc_url($_GET['bunq_payment']);
+        $bunq_link = esc_url(urldecode($_GET['bunq_payment']));
         $order = wc_get_order($order_id);
         $amount = $order->get_total();
         $formatted_amount = number_format($amount, 2, ',', '.');
