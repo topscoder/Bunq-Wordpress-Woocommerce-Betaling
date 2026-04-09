@@ -80,7 +80,7 @@ function init_bunq_payment_gateway() {
             $order_number = $order->get_order_number();
             
             // Construct the Bunq.me link with order number
-            $bunq_link = trailingslashit($this->bunq_link) . $formatted_amount . '/' . $order_number;
+            $bunq_link = untrailingslashit($this->bunq_link) . '?amount=' . $formatted_amount . '&description=' . $order_number;
 
             // Mark as on-hold (we're awaiting the payment)
             $order->update_status('on-hold', __('Awaiting Bunq payment', 'woocommerce'));
