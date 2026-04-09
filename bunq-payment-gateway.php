@@ -2,8 +2,8 @@
 /* 
 Plugin Name: Bunq Betaal Gateway 
 Description: Een aangepaste WooCommerce betaalmethode voor Bunq. 
-Version: 1.9
-Author: Dutchbase
+Version: 2.0
+Author: Dutchbase, topscoder
 Author URI: https://github.com/dutchbase
 */ 
 if (!defined('ABSPATH')) { 
@@ -80,7 +80,7 @@ function init_bunq_payment_gateway() {
             $order_number = $order->get_order_number();
             
             // Construct the Bunq.me link with order number
-            $bunq_link = trailingslashit($this->bunq_link) . $formatted_amount . '/%23' . $order_number;
+            $bunq_link = trailingslashit($this->bunq_link) . $formatted_amount . '/' . $order_number;
 
             // Mark as on-hold (we're awaiting the payment)
             $order->update_status('on-hold', __('Awaiting Bunq payment', 'woocommerce'));
@@ -108,10 +108,9 @@ function init_bunq_payment_gateway() {
             $order = wc_get_order($order); 
             $amount = number_format($order->get_total(), 2, '.', ''); 
             $url = "https://bunq.me/JOUWGEBRUIKERSNAAM/{$amount}"; 
-
- 
         } 
     } 
+    
     function add_bunq_gateway($methods) { 
         error_log('add_bunq_gateway called');
         $methods[] = 'WC_Gateway_Bunq'; 
